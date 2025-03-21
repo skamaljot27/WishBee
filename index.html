@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Fun - Big Bang & Gilmore Vibes</title>
+<style>
+       body {
+           font-family: Arial, sans-serif;
+           text-align: center;
+           background: url('https://i.imgur.com/FxV5kWb.jpeg') no-repeat center center fixed;
+           background-size: cover;
+           color: white;
+       }
+       h1 {
+           font-size: 2.5em;
+           margin-top: 20px;
+           text-shadow: 2px 2px 10px black;
+       }
+       .container {
+           margin-top: 50px;
+       }
+       .item {
+           display: inline-block;
+           margin: 20px;
+           padding: 15px;
+           border-radius: 10px;
+           cursor: pointer;
+           transition: transform 0.2s;
+       }
+       .item:hover {
+           transform: scale(1.1);
+       }
+       #finalMessage {
+           display: none;
+           font-size: 1.8em;
+           font-weight: bold;
+           margin-top: 30px;
+           padding: 20px;
+           background: rgba(0, 0, 0, 0.7);
+           border-radius: 10px;
+       }
+       #fireworks {
+           display: none;
+           font-size: 50px;
+           margin-top: 20px;
+       }
+</style>
+</head>
+<body>
+<h1>Bazinga! Happy Birthday, [Her Name] 🎉</h1>
+<p>Click on things to reveal surprises!</p>
+<div class="container">
+<div class="item" onclick="sheldonMessage()" style="background: #333; padding: 20px;">
+           🛋️ Sheldon's Spot
+</div>
+<div class="item" onclick="coffeeMagic()" style="background: brown; padding: 20px;">
+           ☕ Coffee Cup
+</div>
+<div class="item" onclick="mathSurprise()" style="background: #007acc; padding: 20px;">
+           📖 Whiteboard Equation
+</div>
+<div class="item" onclick="easterEgg()" style="background: #ff4500; padding: 20px;">
+           🍽️ Luke's Diner Sign (Hidden Surprise)
+</div>
+</div>
+<div id="finalMessage">🎉 Happy Birthday! May your day be as legendary as Sheldon’s sarcasm and Lorelai’s coffee addiction! 🎉</div>
+<div id="fireworks">🎆🎇✨</div>
+<script>
+       let sheldonClicked = false, coffeeClicked = false, mathClicked = false, easterEggClicked = false;
+       function sheldonMessage() {
+           alert("Sheldon says: 'I normally don't celebrate birthdays, but since it's you... Bazinga! Happy Birthday!'");
+           sheldonClicked = true;
+           checkAllClicked();
+       }
+       function coffeeMagic() {
+           alert("Lorelai Gilmore: 'Coffee first, questions later. Happy Birthday, caffeine queen! ☕'");
+           coffeeClicked = true;
+           checkAllClicked();
+       }
+       function mathSurprise() {
+           alert("Fun Fact: You + Cake = Happiness² 🎂");
+           mathClicked = true;
+           checkAllClicked();
+       }
+       function easterEgg() {
+           alert("Luke Danes: 'If you say coffee one more time, I swear... Oh fine, Happy Birthday!'");
+           easterEggClicked = true;
+           checkAllClicked();
+       }
+       function checkAllClicked() {
+           if (sheldonClicked && coffeeClicked && mathClicked && easterEggClicked) {
+               document.getElementById("finalMessage").style.display = "block";
+               document.getElementById("fireworks").style.display = "block";
+           }
+       }
+</script>
+</body>
+</html>
