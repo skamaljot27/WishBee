@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Knock, Knock, Knock...</title>
+<style>
+       body {
+           font-family: Arial, sans-serif;
+           text-align: center;
+           background: black;
+           color: white;
+           margin: 0;
+           padding: 0;
+       }
+       #knockMessage {
+           font-size: 2em;
+           margin-top: 20%;
+           cursor: pointer;
+       }
+</style>
+</head>
+<body>
+<div id="knockMessage" onclick="knock()">🔔 Knock, Knock, Knock...</div>
+<script>
+       let knockCount = 0;
+       function knock() {
+           knockCount++;
+           document.getElementById("knockMessage").innerText = `🔔 Knock ${knockCount}, Knock...`;
+           if (knockCount === 3) {
+               window.location.href = "blow_candle.html"; // Redirect to candle blowing page
+           }
+       }
+</script>
+</body>
+</html>
