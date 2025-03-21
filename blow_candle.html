@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blow Out the Candle</title>
+<style>
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            text-align: center;
+
+            background: black;
+
+            color: white;
+
+            overflow: hidden;
+
+        }
+
+        #cake {
+
+            width: 200px;
+
+            margin-top: 50px;
+
+        }
+
+        #candle {
+
+            width: 50px;
+
+            position: relative;
+
+            top: -80px;
+
+            cursor: pointer;
+
+        }
+
+        #instruction {
+
+            font-size: 1.5em;
+
+            margin-top: 20px;
+
+        }
+
+        /* Fireworks Container */
+
+        .fireworks {
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            pointer-events: none;
+
+            display: none;
+
+        }
+
+        .firework {
+
+            position: absolute;
+
+            width: 10px;
+
+            height: 10px;
+
+            background: gold;
+
+            border-radius: 50%;
+
+            animation: explode 1s linear infinite;
+
+        }
+
+        @keyframes explode {
+
+            0% { transform: scale(1); opacity: 1; }
+
+            100% { transform: scale(4); opacity: 0; }
+
+        }
+</style>
+</head>
+<body>
+<h1>🎂 Blow out the candle!</h1>
+<p id="instruction">(Click on the candle or blow into the mic!)</p>
+<img id="cake" src="https://i.imgur.com/J2DbrLQ.png" alt="Cake">
+<img id="candle" src="https://i.imgur.com/OZc3FJg.gif" alt="Candle" onclick="blowCandle()">
+<audio id="birthdaySong" src="your-happy-birthday-song.mp3"></audio>
+<!-- Fireworks Effect -->
+<div class="fireworks" id="fireworks"></div>
+<script>
+
+        function blowCandle() {
+
+            // Change candle to blown-out version
+
+            document.getElementById("candle").src = "https://i.imgur.com/tPyv5nK.png";
+
+            document.getElementById("instruction").innerText = "🎶 Happy Birthday! 🎶";
+
+            // Start fireworks
+
+            startFireworks();
+
+            // Play birthday song
+
+            let song = document.getElementById("birthdaySong");
+
+            song.play();
+
+            // Redirect to the surprise page after 5 seconds
+
+            setTimeout(() => {
+
+                window.location.href = "surprise.html";
+
+            }, 5000);
+
+        }
+
+        function startFireworks() {
+
+            let fireworksContainer = document.getElementById("fireworks");
+
+            fireworksContainer.style.display = "block";
+
+            for (let i = 0; i < 30; i++) {
+
+                let firework = document.createElement("div");
+
+                firework.classList.add("firework");
+
+                firework.style.left = Math.random() * 100 + "vw";
+
+                firework.style.top = Math.random() * 100 + "vh";
+
+                firework.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
+
+                firework.style.animationDuration = Math.random() * 1 + 0.5 + "s";
+
+                fireworksContainer.appendChild(firework);
+
+                setTimeout(() => {
+
+                    firework.remove();
+
+                }, 1000);
+
+            }
+
+        }
+
+        // Optional: Blow with microphone (works in Chrome)
+
+        navigator.mediaDevices.getUserMedia({ audio: true })
+
+        .then(stream => {
+
+            const audioContext = new AudioContext();
+
+            const analyser = audioContext.createAnalyser();
+
+            const microphone = audioContext.createMediaStreamSource(stream);
+
+            microphone.connect(analyser);
+
+            analyser.fftSize = 256;
+
+            const bufferLength = analyser.frequencyBinCount;
+
+            const dataArray = new Uint8Array(bufferLength);
+
+            function detectBlow() {
+
+                analyser.getByteFrequencyData(dataArray);
+
+                let sum = dataArray.reduce((a, b) => a + b, 0);
+
+                if (sum > 20000) {
+
+                    blowCandle();
+
+                }
+
+                requestAnimationFrame(detectBlow);
+
+            }
+
+            detectBlow();
+
+        })
+
+        .catch(error => console.log("Microphone access denied"));
+</script>
+</body>
+</html> 
