@@ -173,7 +173,6 @@
 </div>
 </div>
 <audio id="birthdaySong" src="your-happy-birthday-song.mp3"></audio>
-<!-- Fireworks Effect -->
 <div class="fireworks" id="fireworks"></div>
 <script>
 
@@ -181,23 +180,15 @@
 
             let flame = document.getElementById("flame");
 
-            // Replace flame with smoke animation
-
             flame.style.animation = "none";
 
             flame.innerHTML = '<div class="smoke"></div>';
 
             document.getElementById("instruction").innerText = "🎶 Happy Birthday! 🎶";
 
-            // Start fireworks after 1 second
-
             setTimeout(() => startFireworks(), 1000);
 
-            // Play birthday song
-
             document.getElementById("birthdaySong").play();
-
-            // Redirect to the surprise page after 5 seconds
 
             setTimeout(() => {
 
@@ -238,48 +229,6 @@
             }
 
         }
-
-        // Optional: Blow with microphone (works in Chrome)
-
-        navigator.mediaDevices.getUserMedia({ audio: true })
-
-        .then(stream => {
-
-            const audioContext = new AudioContext();
-
-            const analyser = audioContext.createAnalyser();
-
-            const microphone = audioContext.createMediaStreamSource(stream);
-
-            microphone.connect(analyser);
-
-            analyser.fftSize = 256;
-
-            const bufferLength = analyser.frequencyBinCount;
-
-            const dataArray = new Uint8Array(bufferLength);
-
-            function detectBlow() {
-
-                analyser.getByteFrequencyData(dataArray);
-
-                let sum = dataArray.reduce((a, b) => a + b, 0);
-
-                if (sum > 20000) {
-
-                    blowCandle();
-
-                }
-
-                requestAnimationFrame(detectBlow);
-
-            }
-
-            detectBlow();
-
-        })
-
-        .catch(error => console.log("Microphone access denied"));
 </script>
 </body>
 </html> 
