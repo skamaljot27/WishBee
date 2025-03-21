@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surprise!</title>
+<style>
+
+        .video-background {
+
+            position: fixed;
+
+            top: 50%;
+
+            left: 50%;
+
+            width: 100vw;
+
+            height: 100vh;
+
+            object-fit: cover;
+
+            object-position: center center;
+
+            transform: translate(-50%, -50%);
+
+            z-index: -1;
+
+        }
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            text-align: center;
+
+            color: white;
+
+            background: black;
+
+        }
+
+        .container {
+
+            margin-top: 50px;
+
+        }
+
+        .item {
+
+            display: inline-block;
+
+            margin: 20px;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            background: rgba(0, 0, 0, 0.6);
+
+            color: white;
+
+        }
+
+        .item:hover {
+
+            transform: scale(1.1);
+
+        }
+
+        #finalMessage {
+
+            display: none;
+
+            font-size: 1.8em;
+
+            font-weight: bold;
+
+            margin-top: 30px;
+
+            background: rgba(0, 0, 0, 0.7);
+
+            border-radius: 10px;
+
+            padding: 20px;
+
+        }
+</style>
+</head>
+<body>
+<video autoplay loop muted playsinline class="video-background">
+<source src="your-video-url.mp4" type="video/mp4">
+</video>
+<h1>🎉 Happy Birthday, [Her Name]!</h1>
+<p>Click on the items below for surprises:</p>
+<div class="container">
+<div class="item" onclick="alert('Sheldon says: BAZINGA! Happy Birthday!')">🛋️ Sheldon's Spot</div>
+<div class="item" onclick="alert('Lorelai says: Coffee first, questions later. Happy Birthday! ☕')">☕ Coffee Cup</div>
+<div class="item" onclick="alert('Fun Fact: You + Cake = Happiness² 🎂')">📖 Whiteboard Equation</div>
+<div class="item" onclick="alert('Luke Danes: If you say coffee one more time, I swear... Oh fine, Happy Birthday!')">🍽️ Luke's Diner Sign</div>
+</div>
+<div id="finalMessage">🎆🎇 Have an amazing day filled with laughter and cake! 🎆🎇</div>
+</body>
+</html> 
