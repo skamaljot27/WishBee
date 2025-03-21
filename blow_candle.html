@@ -5,167 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Blow Out the Candle</title>
 <style>
-
-        body {
-
-            font-family: Arial, sans-serif;
-
-            text-align: center;
-
-            background: black;
-
-            color: white;
-
-            overflow: hidden;
-
-        }
-
-        /* Cake & Candle */
-
-        #cake {
-
-            width: 200px;
-
-            margin-top: 50px;
-
-            position: relative;
-
-        }
-
-        .candle {
-
-            width: 20px;
-
-            height: 60px;
-
-            background: red;
-
-            position: absolute;
-
-            top: -80px;
-
-            left: 90px;
-
-            border-radius: 5px;
-
-        }
-
-        /* Flame Animation */
-
-        .flame {
-
-            width: 20px;
-
-            height: 30px;
-
-            background: orange;
-
-            position: absolute;
-
-            top: -30px;
-
-            left: 0;
-
-            border-radius: 50%;
-
-            animation: flicker 0.2s infinite alternate;
-
-        }
-
-        @keyframes flicker {
-
-            0% { transform: scale(1); background: orange; }
-
-            100% { transform: scale(1.1); background: yellow; }
-
-        }
-
-        /* Smoke Animation (after blowing) */
-
-        .smoke {
-
-            width: 4px;
-
-            height: 30px;
-
-            background: gray;
-
-            position: absolute;
-
-            top: -30px;
-
-            left: 8px;
-
-            opacity: 0;
-
-            animation: rise 2s ease-out forwards;
-
-        }
-
-        @keyframes rise {
-
-            0% { opacity: 1; top: -30px; }
-
-            100% { opacity: 0; top: -80px; }
-
-        }
-
-        #instruction {
-
-            font-size: 1.5em;
-
-            margin-top: 20px;
-
-        }
-
-        /* Fireworks Effect */
-
-        .fireworks {
-
-            position: fixed;
-
-            top: 0;
-
-            left: 0;
-
-            width: 100%;
-
-            height: 100%;
-
-            pointer-events: none;
-
-            display: none;
-
-        }
-
-        .firework {
-
-            position: absolute;
-
-            width: 10px;
-
-            height: 10px;
-
-            background: gold;
-
-            border-radius: 50%;
-
-            animation: explode 1s linear infinite;
-
-        }
-
-        @keyframes explode {
-
-            0% { transform: scale(1); opacity: 1; }
-
-            100% { transform: scale(4); opacity: 0; }
-
-        }
+       body { text-align: center; background: black; color: white; font-family: Arial, sans-serif; }
+       #cake { width: 200px; margin-top: 50px; position: relative; }
+       .candle { width: 20px; height: 60px; background: red; position: absolute; top: -60px; left: 90px; border-radius: 5px; }
+       .flame { width: 20px; height: 30px; background: orange; border-radius: 50%;
+           position: absolute; top: -30px; left: 0;
+           animation: flicker 0.2s infinite alternate; }
+       @keyframes flicker { 0% { transform: scale(1); background: orange; } 100% { transform: scale(1.1); background: yellow; } }
 </style>
 </head>
 <body>
 <h1>🎂 Blow out the candle!</h1>
-<p id="instruction">(Click on the candle or blow into the mic!)</p>
+<p>(Click on the candle or blow into the mic!)</p>
 <div id="cake">
 <img src="https://i.imgur.com/J2DbrLQ.png" width="200" alt="Cake">
 <div class="candle">
@@ -173,62 +24,34 @@
 </div>
 </div>
 <audio id="birthdaySong" src="your-happy-birthday-song.mp3"></audio>
-<div class="fireworks" id="fireworks"></div>
 <script>
-
-        function blowCandle() {
-
-            let flame = document.getElementById("flame");
-
-            flame.style.animation = "none";
-
-            flame.innerHTML = '<div class="smoke"></div>';
-
-            document.getElementById("instruction").innerText = "🎶 Happy Birthday! 🎶";
-
-            setTimeout(() => startFireworks(), 1000);
-
-            document.getElementById("birthdaySong").play();
-
-            setTimeout(() => {
-
-                window.location.href = "surprise.html";
-
-            }, 5000);
-
-        }
-
-        function startFireworks() {
-
-            let fireworksContainer = document.getElementById("fireworks");
-
-            fireworksContainer.style.display = "block";
-
-            for (let i = 0; i < 30; i++) {
-
-                let firework = document.createElement("div");
-
-                firework.classList.add("firework");
-
-                firework.style.left = Math.random() * 100 + "vw";
-
-                firework.style.top = Math.random() * 100 + "vh";
-
-                firework.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
-
-                firework.style.animationDuration = Math.random() * 1 + 0.5 + "s";
-
-                fireworksContainer.appendChild(firework);
-
-                setTimeout(() => {
-
-                    firework.remove();
-
-                }, 1000);
-
-            }
-
-        }
+       function blowCandle() {
+           let flame = document.getElementById("flame");
+           flame.style.transition = "opacity 1s";
+           flame.style.opacity = "0";
+           setTimeout(() => flame.style.display = "none", 1000);
+           document.getElementById("birthdaySong").play();
+           setTimeout(() => {
+               window.location.href = "surprise.html";
+           }, 4000);
+       }
+       document.getElementById("cake").addEventListener("click", blowCandle);
+       // Optional: Blow with microphone
+       navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+           const audioContext = new AudioContext();
+           const analyser = audioContext.createAnalyser();
+           const microphone = audioContext.createMediaStreamSource(stream);
+           microphone.connect(analyser);
+           analyser.fftSize = 256;
+           const dataArray = new Uint8Array(analyser.frequencyBinCount);
+           function detectBlow() {
+               analyser.getByteFrequencyData(dataArray);
+               let sum = dataArray.reduce((a, b) => a + b, 0);
+               if (sum > 20000) { blowCandle(); }
+               requestAnimationFrame(detectBlow);
+           }
+           detectBlow();
+       });
 </script>
 </body>
-</html> 
+</html>
