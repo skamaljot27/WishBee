@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Birthday Fun - Big Bang & Gilmore Vibes</title>
 <style>
-       /* Full-screen background video */
+       /* Background Video Styling */
        .video-background {
            position: fixed;
            top: 0;
@@ -39,7 +39,7 @@
            border-radius: 10px;
            cursor: pointer;
            transition: transform 0.2s;
-           background: rgba(0, 0, 0, 0.6); /* Adds readability */
+           background: rgba(0, 0, 0, 0.6);
            color: white;
        }
        .item:hover {
@@ -59,6 +59,17 @@
            font-size: 50px;
            margin-top: 20px;
        }
+       /* Music Player Button */
+       .music-controls {
+           position: fixed;
+           bottom: 20px;
+           right: 20px;
+           background: rgba(0, 0, 0, 0.6);
+           padding: 10px;
+           border-radius: 50px;
+           cursor: pointer;
+           font-size: 18px;
+       }
 </style>
 </head>
 <body>
@@ -67,6 +78,13 @@
 <source src="BBT.mp4" type="video/mp4">
        Your browser does not support the video tag.
 </video>
+<!-- Background Music (Hidden) -->
+<audio id="bgMusic" loop>
+<source src="https://www.youtube.com/watch?v=md6YepdRfoA" type="audio/mp3">
+       Your browser does not support the audio tag.
+</audio>
+<!-- Play/Pause Music Button -->
+<div class="music-controls" onclick="toggleMusic()">🎵 Play Music</div>
 <h1>Bazinga! Happy Birthday, [Her Name] 🎉</h1>
 <p>Click on things to reveal surprises!</p>
 <div class="container">
@@ -79,6 +97,8 @@
 <div id="fireworks">🎆🎇✨</div>
 <script>
        let sheldonClicked = false, coffeeClicked = false, mathClicked = false, easterEggClicked = false;
+       let musicPlaying = false;
+       let bgMusic = document.getElementById("bgMusic");
        function sheldonMessage() {
            alert("Sheldon says: 'I normally don't celebrate birthdays, but since it's you... Bazinga! Happy Birthday!'");
            sheldonClicked = true;
@@ -104,6 +124,16 @@
                document.getElementById("finalMessage").style.display = "block";
                document.getElementById("fireworks").style.display = "block";
            }
+       }
+       function toggleMusic() {
+           if (musicPlaying) {
+               bgMusic.pause();
+               document.querySelector(".music-controls").innerText = "🎵 Play Music";
+           } else {
+               bgMusic.play();
+               document.querySelector(".music-controls").innerText = "⏸ Pause Music";
+           }
+           musicPlaying = !musicPlaying;
        }
 </script>
 </body>
