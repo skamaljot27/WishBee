@@ -1,0 +1,30 @@
+<!-- HTML -->
+<div id="cake-page">
+<img src="cake-image.png" alt="Birthday Cake" id="cake">
+<button id="blow-candle">Blow the Candle</button>
+</div>
+<!-- JavaScript -->
+<script>
+
+  const candleButton = document.getElementById('blow-candle');
+
+  const fireworkSound = new Audio('firework-sound.mp3');
+
+  candleButton.addEventListener('click', () => {
+
+    // Add animation to blow out the candle
+
+    document.getElementById('cake').style.opacity = '0.5'; // Example animation
+
+    fireworkSound.play();
+
+    // Trigger fireworks animation (use a library like GSAP or CSS animations)
+
+    setTimeout(() => {
+
+      window.location.href = 'wishes-page.html'; // Redirect to next page
+
+    }, 5000); // Wait for fireworks to finish
+
+  });
+</script> 
