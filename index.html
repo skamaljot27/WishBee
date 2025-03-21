@@ -1,46 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Knock to Enter</title>
-<style>
-
-        body { text-align: center; background: black; color: white; font-family: Arial, sans-serif; }
-
-        h1 { margin-top: 50px; }
-
-        .knock-area {
-
-            margin-top: 100px; padding: 50px;
-
-            background: gray; display: inline-block; border-radius: 10px;
-
-            cursor: pointer; font-size: 20px;
-
-        }
-</style>
-</head>
-<body>
-<h1>Knock 3 times to enter 🎉</h1>
-<div class="knock-area" onclick="registerKnock()">🔔 Knock Here</div>
+<!-- HTML -->
+<div id="knock-page">
+<img src="door-image.jpg" alt="Door">
+<p>Knock 3 times to enter!</p>
+</div>
+<!-- JavaScript -->
 <script>
-
-        let knockCount = 0;
-
-        function registerKnock() {
-
-            knockCount++;
-
-            document.querySelector(".knock-area").innerText = `Knocks: ${knockCount}`;
-
-            if (knockCount === 3) {
-
-                window.location.href = "blow_candle.html";
-
-            }
-
-        }
+ let knockCount = 0;
+ const knockSound = new Audio('knock-sound.mp3');
+ document.addEventListener('keydown', (event) => {
+   if (event.code === 'Space') { // Use spacebar or any key
+     knockCount++;
+     knockSound.play();
+     if (knockCount === 3) {
+       window.location.href = 'cake-page.html'; // Redirect to next page
+     }
+   }
+ });
 </script>
-</body>
-</html> 
