@@ -81,14 +81,14 @@
        Your browser does not support the video tag.
 </video>
 <!-- Background Music (Hidden) -->
-<audio id="bgMusic" loop>
+<audio id="bgMusic" autoplay loop>
 <source src="GG.mp3" type="audio/mp3">
        Your browser does not support the audio tag.
 </audio>
 <!-- Play/Pause Music Button -->
-<div class="music-controls" onclick="toggleMusic()">🎵 Play Music</div>
+<div class="music-controls" onclick="toggleMusic()">⏸ Pause Music</div>
 <h1> Happy Birthday, Bhavneet</h1>
-<p>Click on things to reveal surprises!</p>
+<p>Click on things to reveal wishes!</p>
 <div class="container">
 <div class="item" onclick="sheldonMessage()">🛋️ Sheldon's Spot</div>
 <div class="item" onclick="coffeeMagic()">☕ Coffee Cup</div>
@@ -99,7 +99,7 @@
 <div id="fireworks">🎆🎇✨</div>
 <script>
        let sheldonClicked = false, coffeeClicked = false, mathClicked = false, easterEggClicked = false;
-       let musicPlaying = false;
+       let musicPlaying = true;
        let bgMusic = document.getElementById("bgMusic");
        function sheldonMessage() {
            alert("Sheldon: 'I normally don't celebrate birthdays, but since it's you... Bazinga! Happy Birthday!'");
@@ -112,7 +112,7 @@
            checkAllClicked();
        }
        function mathSurprise() {
-           alert("Fun Fact: You + Cake = Happiness² 🎂");
+           alert("You + Smile = Happiness² 🎂");
            mathClicked = true;
            checkAllClicked();
        }
