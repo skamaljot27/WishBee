@@ -3,34 +3,143 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Knock, Knock, Knock...</title>
+<title>Knock to Enter</title>
 <style>
-       body {
-           font-family: Arial, sans-serif;
-           text-align: center;
-           background: black;
-           color: white;
-           margin: 0;
-           padding: 0;
-       }
-       #knockMessage {
-           font-size: 2em;
-           margin-top: 20%;
-           cursor: pointer;
-       }
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            text-align: center;
+
+            background: black;
+
+            color: white;
+
+        }
+
+        h1 {
+
+            margin-top: 50px;
+
+        }
+
+        .knock-area {
+
+            margin-top: 100px;
+
+            padding: 50px;
+
+            background: gray;
+
+            display: inline-block;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+        }
+
+        .fireworks {
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            pointer-events: none;
+
+            display: none;
+
+        }
+
+        .firework {
+
+            position: absolute;
+
+            width: 10px;
+
+            height: 10px;
+
+            background: gold;
+
+            border-radius: 50%;
+
+            animation: explode 1s linear infinite;
+
+        }
+
+        @keyframes explode {
+
+            0% { transform: scale(1); opacity: 1; }
+
+            100% { transform: scale(4); opacity: 0; }
+
+        }
 </style>
 </head>
 <body>
-<div id="knockMessage" onclick="knock()">🔔 Knock, Knock, Knock...</div>
+<h1>Knock 3 times to enter 🎉</h1>
+<div class="knock-area" onclick="registerKnock()">🔔 Knock Here</div>
+<div class="fireworks" id="fireworks"></div>
 <script>
-       let knockCount = 0;
-       function knock() {
-           knockCount++;
-           document.getElementById("knockMessage").innerText = `🔔 Knock ${knockCount}, Knock...`;
-           if (knockCount === 3) {
-               window.location.href = "blow_candle.html"; // Redirect to candle blowing page
-           }
-       }
+
+        let knockCount = 0;
+
+        function registerKnock() {
+
+            knockCount++;
+
+            if (knockCount === 3) {
+
+                startFireworks();
+
+                setTimeout(() => {
+
+                    window.location.href = "blow_candle.html";
+
+                }, 4000); // Redirect after 4 seconds
+
+            }
+
+        }
+
+        function startFireworks() {
+
+            let fireworksContainer = document.getElementById("fireworks");
+
+            fireworksContainer.style.display = "block";
+
+            for (let i = 0; i < 30; i++) {
+
+                let firework = document.createElement("div");
+
+                firework.classList.add("firework");
+
+                firework.style.left = Math.random() * 100 + "vw";
+
+                firework.style.top = Math.random() * 100 + "vh";
+
+                firework.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
+
+                firework.style.animationDuration = Math.random() * 1 + 0.5 + "s";
+
+                fireworksContainer.appendChild(firework);
+
+                setTimeout(() => {
+
+                    firework.remove();
+
+                }, 1000);
+
+            }
+
+        }
 </script>
 </body>
-</html>
+</html> 
