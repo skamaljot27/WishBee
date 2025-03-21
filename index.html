@@ -5,12 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Birthday Fun - Big Bang & Gilmore Vibes</title>
 <style>
+       /* Full-screen background video */
+       .video-background {
+           position: fixed;
+           top: 0;
+           left: 0;
+           width: 100%;
+           height: 100%;
+           object-fit: cover;
+           z-index: -1; /* Keeps it in the background */
+       }
        body {
            font-family: Arial, sans-serif;
            text-align: center;
-           background: url('https://www.instagram.com/junkboxai/reel/DHGz7U3RI-a/') no-repeat center center fixed;
-           background-size: cover;
            color: white;
+           margin: 0;
+           padding: 0;
        }
        h1 {
            font-size: 2.5em;
@@ -19,6 +29,8 @@
        }
        .container {
            margin-top: 50px;
+           position: relative;
+           z-index: 1; /* Ensures content is above the video */
        }
        .item {
            display: inline-block;
@@ -27,6 +39,8 @@
            border-radius: 10px;
            cursor: pointer;
            transition: transform 0.2s;
+           background: rgba(0, 0, 0, 0.6); /* Adds readability */
+           color: white;
        }
        .item:hover {
            transform: scale(1.1);
@@ -48,21 +62,18 @@
 </style>
 </head>
 <body>
+<!-- Background Video -->
+<video autoplay loop muted playsinline class="video-background">
+<source src="your-video-url.mp4" type="video/mp4">
+       Your browser does not support the video tag.
+</video>
 <h1>Bazinga! Happy Birthday, [Her Name] 🎉</h1>
 <p>Click on things to reveal surprises!</p>
 <div class="container">
-<div class="item" onclick="sheldonMessage()" style="background: #333; padding: 20px;">
-           🛋️ Sheldon's Spot
-</div>
-<div class="item" onclick="coffeeMagic()" style="background: brown; padding: 20px;">
-           ☕ Coffee Cup
-</div>
-<div class="item" onclick="mathSurprise()" style="background: #007acc; padding: 20px;">
-           📖 Whiteboard Equation
-</div>
-<div class="item" onclick="easterEgg()" style="background: #ff4500; padding: 20px;">
-           🍽️ Luke's Diner Sign (Hidden Surprise)
-</div>
+<div class="item" onclick="sheldonMessage()">🛋️ Sheldon's Spot</div>
+<div class="item" onclick="coffeeMagic()">☕ Coffee Cup</div>
+<div class="item" onclick="mathSurprise()">📖 Whiteboard Equation</div>
+<div class="item" onclick="easterEgg()">🍽️ Luke's Diner Sign (Hidden Surprise)</div>
 </div>
 <div id="finalMessage">🎉 Happy Birthday! May your day be as legendary as Sheldon’s sarcasm and Lorelai’s coffee addiction! 🎉</div>
 <div id="fireworks">🎆🎇✨</div>
