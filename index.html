@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Countdown to Eternity</title>
-<!-- Google Fonts for Elegant Typography -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+<!-- Elegant Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Josefin+Sans:wght@300&display=swap" rel="stylesheet">
 <style>
 
         body {
@@ -14,7 +14,7 @@
 
             padding: 0;
 
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Josefin Sans', sans-serif;
 
             color: white;
 
@@ -90,13 +90,13 @@
 
             background: transparent;
 
-            border: 2px solid rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.6);
 
-            padding: 15px 50px;
+            padding: 12px 45px;
 
             font-size: 22px;
 
-            font-weight: bold;
+            font-weight: 300;
 
             color: white;
 
@@ -110,47 +110,19 @@
 
             overflow: hidden;
 
-            transition: all 0.4s ease-in-out;
+            transition: all 0.3s ease-in-out;
 
-            font-family: 'Playfair Display', serif;
+            font-family: 'Cormorant Garamond', serif;
 
-        }
-
-        .start-btn::before {
-
-            content: "";
-
-            position: absolute;
-
-            top: 0;
-
-            left: 50%;
-
-            width: 300%;
-
-            height: 100%;
-
-            background: rgba(255, 255, 255, 0.2);
-
-            transition: all 0.4s ease-in-out;
-
-            transform: translateX(-50%) scaleX(0);
-
-        }
-
-        .start-btn:hover::before {
-
-            transform: translateX(-50%) scaleX(1);
+            letter-spacing: 2px;
 
         }
 
         .start-btn:hover {
 
-            border-color: white;
+            background: white;
 
             color: black;
-
-            background: white;
 
         }
 
@@ -164,13 +136,13 @@
 
             transform: translateY(20px);
 
-            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
 
-            font-size: 2em;
+            font-size: 2.5em;
 
-            font-weight: bold;
+            font-family: 'Cormorant Garamond', serif;
 
-            font-family: 'Playfair Display', serif;
+            font-weight: 300;
 
         }
 
@@ -184,7 +156,7 @@
 
         }
 
-        /* Message */
+        /* Subtle Message */
 
         .message {
 
@@ -192,9 +164,11 @@
 
             margin-top: 20px;
 
-            opacity: 0.8;
+            opacity: 0.7;
 
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Josefin Sans', sans-serif;
+
+            font-weight: 300;
 
         }
 
@@ -216,7 +190,7 @@
 
             cursor: pointer;
 
-            font-size: 18px;
+            font-size: 16px;
 
             backdrop-filter: blur(5px);
 
@@ -241,14 +215,14 @@
 <!-- Countdown Timer -->
 <div class="countdown" id="countdown">
 <div id="timer"></div>
-<p class="message">This page will stay live every year, forever!</p>
+<p class="message">A timeless moment, celebrated every year.</p>
 </div>
 <!-- Background Music -->
 <audio id="bgMusic" loop>
 <source src="Ocean.mp3" type="audio/mp3">
 </audio>
 <!-- Play/Pause Music Button -->
-<div class="music-controls" id="music-btn" onclick="toggleMusic()">🎵 Play Music</div>
+<div class="music-controls" id="music-btn" onclick="toggleMusic()"></div>
 <script>
 
     let musicPlaying = false;
@@ -317,7 +291,7 @@
 
         const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
-        document.getElementById("timer").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        document.getElementById("timer").innerHTML = `${days} days ${hours} hrs ${minutes} min ${seconds} sec`;
 
         setTimeout(updateCountdown, 1000);
 
@@ -333,11 +307,11 @@
 
         "particles": {
 
-            "number": { "value": 80 },
+            "number": { "value": 60 },
 
-            "size": { "value": 3 },
+            "size": { "value": 2 },
 
-            "move": { "speed": 2 }
+            "move": { "speed": 1.5 }
 
         }
 
