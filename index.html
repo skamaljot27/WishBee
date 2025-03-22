@@ -155,6 +155,16 @@
             }
 
         });
+       function toggleMusic() {
+           if (musicPlaying) {
+               bgMusic.pause();
+               document.querySelector(".music-controls").innerText = "🎵 Play Music";
+           } else {
+               bgMusic.play();
+               document.querySelector(".music-controls").innerText = "⏸ Pause Music";
+           }
+           musicPlaying = !musicPlaying;
+       }
 </script>
         <!-- Background Music (Hidden) -->
 <audio id="bgMusic" autoplay loop>
