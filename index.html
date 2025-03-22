@@ -3,69 +3,140 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Countdown to Eternity</title>
+<title>Next Year Countdown</title>
+<!-- Styles -->
 <style>
-       body {
-           font-family: Arial, sans-serif;
-           text-align: center;
-           color: white;
-           background: url('https://i.imgur.com/your-image.jpg') no-repeat center center fixed;
-           background-size: cover;
-       }
-       h1 {
-           font-size: 3em;
-           margin-top: 20px;
-           text-shadow: 2px 2px 10px black;
-           animation: glow 1.5s infinite alternate;
-       }
-       #countdown {
-           font-size: 2em;
-           margin-top: 30px;
-           padding: 20px;
-           background: rgba(0, 0, 0, 0.7);
-           border-radius: 10px;
-           display: inline-block;
-       }
-       #forever-message {
-           font-size: 1.5em;
-           margin-top: 20px;
-           color: gold;
-           font-style: italic;
-       }
-       @keyframes glow {
-           from { text-shadow: 0 0 10px gold; }
-           to { text-shadow: 0 0 20px white; }
-       }
+
+        /* Full Page Styling */
+
+        body {
+
+            margin: 0;
+
+            padding: 0;
+
+            font-family: Arial, sans-serif;
+
+            color: white;
+
+            text-align: center;
+
+            background: black; /* Fallback background */
+
+            overflow: hidden;
+
+        }
+
+        /* Background Animation */
+
+        #particles-js {
+
+            position: absolute;
+
+            width: 100%;
+
+            height: 100%;
+
+            z-index: -1; /* Behind all content */
+
+        }
+
+        /* Countdown Timer */
+
+        .countdown {
+
+            position: relative;
+
+            top: 40%;
+
+            font-size: 2em;
+
+            font-weight: bold;
+
+            background: rgba(0, 0, 0, 0.5);
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+            display: inline-block;
+
+        }
+
+        /* Small Text */
+
+        .message {
+
+            font-size: 1.2em;
+
+            margin-top: 20px;
+
+            opacity: 0.8;
+
+        }
 </style>
 </head>
 <body>
-<h1>March 22nd, Every Year. Forever. 💫</h1>
-<p id="forever-message">This isn't just one day. It's eternal.</p>
-<div id="countdown"></div>
+<!-- Background Animation -->
+<div id="particles-js"></div>
+<!-- Countdown Timer -->
+<div class="countdown">
+<p>Next Celebration Goes Live In:</p>
+<div id="timer"></div>
+<p class="message">This page will stay live every year, forever! ✨</p>
+</div>
+<!-- Countdown Script -->
 <script>
-       function updateCountdown() {
-           const now = new Date();
-           let nextBirthday = new Date(now.getFullYear(), 2, 22, 0, 0, 0); // March 22 of this year
-           if (now > nextBirthday) {
-               nextBirthday = new Date(now.getFullYear() + 1, 2, 22, 0, 0, 0); // Move to next year
-           }
-           const diff = nextBirthday - now;
-           const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-           const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-           const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-           const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-           document.getElementById('countdown').innerHTML =
-               `⏳ ${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds ⏳`;
-           setTimeout(updateCountdown, 1000);
-       }
-       updateCountdown();
+
+        function updateCountdown() {
+
+            const now = new Date();
+
+            const nextYear = now.getFullYear() + 1;
+
+            const eventDate = new Date(`${nextYear}-03-22T00:00:00`).getTime();
+
+            const currentTime = now.getTime();
+
+            const timeLeft = eventDate - currentTime;
+
+            // Calculate time components
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            document.getElementById("timer").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+            // Update every second
+
+            setTimeout(updateCountdown, 1000);
+
+        }
+
+        updateCountdown();
 </script>
-         <script>
-   fetch("https://formsubmit.co/skamaljot27@gmail.com", {
-       method: "POST",
-       headers: { "Content-Type": "application/json" },
-       body: JSON.stringify({ message: " visited the site-countdown!" })
-   });
+<!-- Particles.js Script -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+
+        particlesJS("particles-js", {
+
+            "particles": {
+
+                "number": { "value": 80 },
+
+                "size": { "value": 3 },
+
+                "move": { "speed": 2 }
+
+            }
+
+        });
 </script>
 </body>
-</html>
+</html> 
