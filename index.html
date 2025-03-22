@@ -138,5 +138,16 @@
 
         });
 </script>
+        <!-- Background Music (Hidden) -->
+<audio id="bgMusic" autoplay loop>
+<source src="Ocean.mp3" type="audio/mp3">
+       Your browser does not support the audio tag.
+</audio>
+<script>
+       window.onload = function() {
+           const audio = document.getElementById("bgMusic");
+           audio.play().catch(error => console.log("Autoplay failed:", error));
+       };
+</script>
 </body>
 </html> 
