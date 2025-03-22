@@ -103,6 +103,20 @@
 </audio>
 <!-- Play/Pause Music Button -->
 <div class="music-controls" onclick="toggleMusic()">🎵 Play Music</div>
+        <script>
+                       let musicPlaying = false;
+       let bgMusic = document.getElementById("bgMusic");
+                               function toggleMusic() {
+           if (musicPlaying) {
+               bgMusic.pause();
+               document.querySelector(".music-controls").innerText = "🎵 Play Music";
+           } else {
+               bgMusic.play();
+               document.querySelector(".music-controls").innerText = "⏸ Pause Music";
+           }
+           musicPlaying = !musicPlaying;
+       }
+        </script>
 <!-- Countdown Script -->
 <script>
 
@@ -117,8 +131,7 @@
             const currentTime = now.getTime();
 
             const timeLeft = eventDate - currentTime;
-       let musicPlaying = false;
-       let bgMusic = document.getElementById("bgMusic");
+
             // Calculate time components
 
             const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
@@ -138,16 +151,7 @@
         }
 
         updateCountdown();
-               function toggleMusic() {
-           if (musicPlaying) {
-               bgMusic.pause();
-               document.querySelector(".music-controls").innerText = "🎵 Play Music";
-           } else {
-               bgMusic.play();
-               document.querySelector(".music-controls").innerText = "⏸ Pause Music";
-           }
-           musicPlaying = !musicPlaying;
-       }
+
 </script>
 <!-- Particles.js Script -->
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
@@ -167,12 +171,6 @@
 
         });
 
-</script>
-<script>
-       window.onload = function() {
-           const audio = document.getElementById("bgMusic");
-           audio.play().catch(error => console.log("Autoplay failed:", error));
-       };
 </script>
 </body>
 </html> 
