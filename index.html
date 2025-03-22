@@ -138,6 +138,16 @@
         }
 
         updateCountdown();
+               function toggleMusic() {
+           if (musicPlaying) {
+               bgMusic.pause();
+               document.querySelector(".music-controls").innerText = "🎵 Play Music";
+           } else {
+               bgMusic.play();
+               document.querySelector(".music-controls").innerText = "⏸ Pause Music";
+           }
+           musicPlaying = !musicPlaying;
+       }
 </script>
 <!-- Particles.js Script -->
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
@@ -156,22 +166,8 @@
             }
 
         });
-       function toggleMusic() {
-           if (musicPlaying) {
-               bgMusic.pause();
-               document.querySelector(".music-controls").innerText = "🎵 Play Music";
-           } else {
-               bgMusic.play();
-               document.querySelector(".music-controls").innerText = "⏸ Pause Music";
-           }
-           musicPlaying = !musicPlaying;
-       }
+
 </script>
-        <!-- Background Music (Hidden) -->
-<audio id="bgMusic" autoplay loop>
-<source src="Ocean.mp3" type="audio/mp3">
-       Your browser does not support the audio tag.
-</audio>
 <script>
        window.onload = function() {
            const audio = document.getElementById("bgMusic");
