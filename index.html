@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Countdown to Eternity</title>
+<!-- Google Fonts for Elegant Typography -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
 <style>
 
         body {
@@ -68,7 +70,17 @@
 
             z-index: 10;
 
-            transition: opacity 0.8s ease-in-out;
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+
+        }
+
+        .hidden {
+
+            opacity: 0;
+
+            transform: scale(0.95);
+
+            pointer-events: none;
 
         }
 
@@ -99,6 +111,8 @@
             overflow: hidden;
 
             transition: all 0.4s ease-in-out;
+
+            font-family: 'Playfair Display', serif;
 
         }
 
@@ -144,17 +158,29 @@
 
         .countdown {
 
-            display: none; /* Initially hidden */
+            display: none;
+
+            opacity: 0;
+
+            transform: translateY(20px);
+
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
 
             font-size: 2em;
 
             font-weight: bold;
 
-            background: rgba(0, 0, 0, 0.5);
+            font-family: 'Playfair Display', serif;
 
-            padding: 20px;
+        }
 
-            border-radius: 10px;
+        .show {
+
+            display: block;
+
+            opacity: 1;
+
+            transform: translateY(0);
 
         }
 
@@ -167,6 +193,8 @@
             margin-top: 20px;
 
             opacity: 0.8;
+
+            font-family: 'Poppins', sans-serif;
 
         }
 
@@ -220,7 +248,7 @@
 <source src="Ocean.mp3" type="audio/mp3">
 </audio>
 <!-- Play/Pause Music Button -->
-<div class="music-controls" id="music-btn" onclick="toggleMusic()"></div>
+<div class="music-controls" id="music-btn" onclick="toggleMusic()">🎵 Play Music</div>
 <script>
 
     let musicPlaying = false;
@@ -229,13 +257,19 @@
 
     function startApp() {
 
-        document.getElementById("start-screen").style.opacity = "0";
+        let startScreen = document.getElementById("start-screen");
+
+        let countdown = document.getElementById("countdown");
+
+        // Hide start screen smoothly
+
+        startScreen.classList.add("hidden");
 
         setTimeout(() => {
 
-            document.getElementById("start-screen").style.display = "none";
+            startScreen.style.display = "none";
 
-            document.getElementById("countdown").style.display = "block";
+            countdown.classList.add("show");
 
             bgMusic.play();
 
