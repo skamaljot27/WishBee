@@ -6,74 +6,40 @@
 <title>Countdown to Eternity</title>
 <!-- Styles -->
 <style>
-
-        /* Full Page Styling */
-
-        body {
-
-            margin: 0;
-
-            padding: 0;
-
-            font-family: Arial, sans-serif;
-
-            color: white;
-
-            text-align: center;
-
-            background: black; /* Fallback background */
-
-            overflow: hidden;
-
-        }
-
-        /* Background Animation */
-
-        #particles-js {
-
-            position: absolute;
-
-            width: 100%;
-
-            height: 100%;
-
-            z-index: -1; /* Behind all content */
-
-        }
-
-        /* Countdown Timer */
-
-        .countdown {
-
-            position: relative;
-
-            top: 40%;
-
-            font-size: 2em;
-
-            font-weight: bold;
-
-            background: rgba(0, 0, 0, 0.5);
-
-            padding: 20px;
-
-            border-radius: 10px;
-
-            display: inline-block;
-
-        }
-
-        /* Small Text */
-
-        .message {
-
-            font-size: 1.2em;
-
-            margin-top: 20px;
-
-            opacity: 0.8;
-
-        }
+       /* Full Page Styling */
+       body {
+           margin: 0;
+           padding: 0;
+           font-family: Arial, sans-serif;
+           color: white;
+           text-align: center;
+           background: black; /* Fallback background */
+           overflow: hidden;
+       }
+       /* Background Animation */
+       #particles-js {
+           position: absolute;
+           width: 100%;
+           height: 100%;
+           z-index: -1; /* Behind all content */
+       }
+       /* Countdown Timer */
+       .countdown {
+           position: relative;
+           top: 40%;
+           font-size: 2em;
+           font-weight: bold;
+           background: rgba(0, 0, 0, 0.5);
+           padding: 20px;
+           border-radius: 10px;
+           display: inline-block;
+       }
+       /* Small Text */
+       .message {
+           font-size: 1.2em;
+           margin-top: 20px;
+           opacity: 0.8;
+       }
        /* Music Player Button */
        .music-controls {
            position: fixed;
@@ -92,85 +58,66 @@
 <div id="particles-js"></div>
 <!-- Countdown Timer -->
 <div class="countdown">
-<!-- <p>This isn't just one day. It's eternal.</p> -->
 <div id="timer"></div>
 <p class="message">This page will stay live every year, forever!</p>
 </div>
-        <!-- Background Music (Hidden) -->
+<!-- Background Music -->
 <audio id="bgMusic" loop>
 <source src="Ocean.mp3" type="audio/mp3">
        Your browser does not support the audio tag.
 </audio>
 <!-- Play/Pause Music Button -->
 <div class="music-controls" onclick="toggleMusic()">🎵 Play Music</div>
-        <script>
-                       let musicPlaying = false;
+<!-- JavaScript -->
+<script>
+       let musicPlaying = false;
        let bgMusic = document.getElementById("bgMusic");
-                               function toggleMusic() {
+       function toggleMusic() {
            if (musicPlaying) {
                bgMusic.pause();
                document.querySelector(".music-controls").innerText = "🎵 Play Music";
            } else {
-               bgMusic.play();
+               bgMusic.play().catch(error => console.log("Autoplay blocked:", error));
                document.querySelector(".music-controls").innerText = "⏸ Pause Music";
            }
            musicPlaying = !musicPlaying;
        }
-        </script>
-<!-- Countdown Script -->
-<script>
-
-        function updateCountdown() {
-
-            const now = new Date();
-
-            const nextYear = now.getFullYear() + 1;
-
-            const eventDate = new Date(`${nextYear}-03-22T00:00:00`).getTime();
-
-            const currentTime = now.getTime();
-
-            const timeLeft = eventDate - currentTime;
-
-            // Calculate time components
-
-            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-
-            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-
-            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-
-            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-            document.getElementById("timer").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-
-            // Update every second
-
-            setTimeout(updateCountdown, 1000);
-
-        }
-
-        updateCountdown();
-
+       // Auto-play music on page load
+       window.onload = function() {
+           setTimeout(() => {
+               bgMusic.play().catch(error => console.log("Autoplay blocked:", error));
+               document.querySelector(".music-controls").innerText = "⏸ Pause Music";
+               musicPlaying = true;
+           }, 1000); // Delay to ensure music starts after page loads
+       };
+       // Countdown Timer Script
+       function updateCountdown() {
+           const now = new Date();
+           const nextYear = now.getFullYear() + 1;
+           const eventDate = new Date(`${nextYear}-03-22T00:00:00`).getTime();
+           const currentTime = now.getTime();
+           const timeLeft = eventDate - currentTime;
+           // Calculate time components
+           const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+           const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+           const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+           const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+           document.getElementById("timer").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+           // Update every second
+           setTimeout(updateCountdown, 1000);
+       }
+       updateCountdown();
 </script>
 <!-- Particles.js Script -->
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
-
-        particlesJS("particles-js", {
-
-            "particles": {
-
-                "number": { "value": 80 },
-
-                "size": { "value": 3 },
-
-                "move": { "speed": 2 }
-
-            }
-
-        });
-
+       particlesJS("particles-js", {
+           "particles": {
+               "number": { "value": 80 },
+               "size": { "value": 3 },
+               "move": { "speed": 2 }
+           }
+       });
 </script>
 </body>
-</html> 
+</html>
