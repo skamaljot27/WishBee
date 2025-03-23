@@ -66,9 +66,9 @@
             transform: translateY(0);
         }
 
-        /* Timer in one line */
+        /* Countdown Timer */
         #timer {
-            font-size: 2.5em;
+            font-size: 1.8em; /* Reduced size */
             font-family: 'Cormorant Garamond', serif;
             font-weight: 300;
             opacity: 0;
@@ -84,8 +84,9 @@
         /* Message Words Fade-in */
         .word {
             opacity: 0;
-            transition: opacity 0.5s ease-in-out;
             display: inline-block;
+            margin-right: 5px; /* Added spacing between words */
+            transition: opacity 0.5s ease-in-out;
         }
 
         /* Animated Button */
@@ -202,7 +203,7 @@
             words.forEach((word, index) => {
                 let span = document.createElement("span");
                 span.classList.add("word");
-                span.textContent = word + " ";
+                span.textContent = word;
                 messageContainer.appendChild(span);
 
                 setTimeout(() => {
