@@ -1,330 +1,225 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-F9905M1NBX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F9905M1NBX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-F9905M1NBX');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown to Eternity</title>
 
-  gtag('config', 'G-F9905M1NBX');
-</script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Countdown to Eternity</title>
-<!-- Elegant Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Josefin+Sans:wght@300&display=swap" rel="stylesheet">
-<style>
+    <!-- Elegant Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Josefin+Sans:wght@300&display=swap" rel="stylesheet">
 
+    <style>
         body {
-
             margin: 0;
-
             padding: 0;
-
             font-family: 'Josefin Sans', sans-serif;
-
             color: white;
-
             text-align: center;
-
             background: black;
-
             overflow: hidden;
-
             display: flex;
-
             justify-content: center;
-
             align-items: center;
-
             height: 100vh;
-
         }
 
         /* Background Animation */
-
         #particles-js {
-
             position: absolute;
-
             width: 100%;
-
             height: 100%;
-
             z-index: -1;
-
         }
 
         /* Start Screen */
-
         .start-screen {
-
             position: fixed;
-
             width: 100%;
-
             height: 100%;
-
             background: rgba(0, 0, 0, 0.85);
-
             display: flex;
-
             justify-content: center;
-
             align-items: center;
-
             flex-direction: column;
-
             z-index: 10;
-
-            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
-
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
         }
 
         .hidden {
-
             opacity: 0;
-
             transform: scale(0.95);
-
             pointer-events: none;
-
         }
 
         /* Elegant Animated Button */
-
         .start-btn {
-
             background: transparent;
-
             border: 1px solid rgba(255, 255, 255, 0.6);
-
             padding: 12px 45px;
-
             font-size: 22px;
-
             font-weight: 300;
-
             color: white;
-
             cursor: pointer;
-
             border-radius: 50px;
-
             text-transform: uppercase;
-
             position: relative;
-
             overflow: hidden;
-
             transition: all 0.3s ease-in-out;
-
             font-family: 'Cormorant Garamond', serif;
-
             letter-spacing: 2px;
-
         }
 
         .start-btn:hover {
-
             background: white;
-
             color: black;
-
         }
 
         /* Countdown Timer */
-
         .countdown {
-
             display: none;
-
             opacity: 0;
-
             transform: translateY(20px);
-
             transition: opacity 1s ease-in-out, transform 1s ease-in-out;
-
             font-size: 2.5em;
-
             font-family: 'Cormorant Garamond', serif;
-
             font-weight: 300;
-
         }
 
         .show {
-
             display: block;
-
             opacity: 1;
-
             transform: translateY(0);
-
         }
 
         /* Subtle Message */
-
         .message {
-
             font-size: 1.2em;
-
             margin-top: 20px;
-
             opacity: 0.7;
-
             font-family: 'Josefin Sans', sans-serif;
-
             font-weight: 300;
-
         }
 
         /* Music Controls */
-
         .music-controls {
-
             position: fixed;
-
             bottom: 20px;
-
             right: 20px;
-
             background: rgba(255, 255, 255, 0.1);
-
             padding: 10px 15px;
-
             border-radius: 50px;
-
             cursor: pointer;
-
             font-size: 16px;
-
             backdrop-filter: blur(5px);
-
             transition: all 0.3s ease-in-out;
-
         }
 
         .music-controls:hover {
-
             background: rgba(255, 255, 255, 0.2);
-
         }
-</style>
+    </style>
 </head>
 <body>
-<!-- Background Animation -->
-<div id="particles-js"></div>
-<!-- Start Screen -->
-<div id="start-screen" class="start-screen">
-<button class="start-btn" onclick="startApp()">Enter</button>
-</div>
-<!-- Countdown Timer -->
-<div class="countdown" id="countdown">
-<div id="timer"></div>
-<p class="message">This page will stay live every year, forever!</p>
-</div>
-<!-- Background Music -->
-<audio id="bgMusic" loop>
-<source src="Ocean.mp3" type="audio/mp3">
-</audio>
-<!-- Play/Pause Music Button -->
-<div class="music-controls" id="music-btn" onclick="toggleMusic()"></div>
-<script>
 
-    let musicPlaying = false;
+    <!-- Background Animation -->
+    <div id="particles-js"></div>
 
-    let bgMusic = document.getElementById("bgMusic");
+    <!-- Start Screen -->
+    <div id="start-screen" class="start-screen">
+        <button class="start-btn" onclick="startApp()">Enter</button>
+    </div>
 
-    function startApp() {
+    <!-- Countdown Timer -->
+    <div class="countdown" id="countdown">
+        <div id="timer"></div>
+        <p class="message">This page will stay live every year, forever!</p>
+    </div>
 
-        let startScreen = document.getElementById("start-screen");
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="Ocean.mp3" type="audio/mp3">
+    </audio>
 
-        let countdown = document.getElementById("countdown");
+    <!-- Play/Pause Music Button -->
+    <div class="music-controls" id="music-btn" onclick="toggleMusic()">🎵 Play Music</div>
 
-        // Hide start screen smoothly
+    <script>
+        let musicPlaying = false;
+        let bgMusic = document.getElementById("bgMusic");
 
-        startScreen.classList.add("hidden");
+        function startApp() {
+            let startScreen = document.getElementById("start-screen");
+            let countdown = document.getElementById("countdown");
 
-        setTimeout(() => {
+            // Hide start screen smoothly
+            startScreen.classList.add("hidden");
 
-            startScreen.style.display = "none";
+            setTimeout(() => {
+                startScreen.style.display = "none";
+                countdown.classList.add("show");
 
-            countdown.classList.add("show");
-
-            bgMusic.play();
-
-        }, 800);
-
-    }
-
-    function toggleMusic() {
-
-        if (musicPlaying) {
-
-            bgMusic.pause();
-
-            document.getElementById("music-btn").innerText = "🎵 Play Music";
-
-        } else {
-
-            bgMusic.play();
-
-            document.getElementById("music-btn").innerText = "⏸ Pause Music";
-
+                // Try playing the music only when user interacts
+                try {
+                    bgMusic.play();
+                    document.getElementById("music-btn").innerText = "⏸ Pause Music";
+                    musicPlaying = true;
+                } catch (err) {
+                    console.warn("Autoplay blocked. User needs to start manually.");
+                }
+            }, 1000);
         }
 
-        musicPlaying = !musicPlaying;
-
-    }
-
-    function updateCountdown() {
-
-        const now = new Date();
-
-        const nextYear = now.getFullYear() + 1;
-
-        const eventDate = new Date(`${nextYear}-03-22T00:00:00`).getTime();
-
-        const currentTime = now.getTime();
-
-        const timeLeft = eventDate - currentTime;
-
-        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-
-        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-
-        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-
-        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-        document.getElementById("timer").innerHTML = `${days} days ${hours} hrs ${minutes} min ${seconds} sec`;
-
-        setTimeout(updateCountdown, 1000);
-
-    }
-
-    updateCountdown();
-</script>
-<!-- Particles.js (Animated Background) -->
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<script>
-
-    particlesJS("particles-js", {
-
-        "particles": {
-
-            "number": { "value": 60 },
-
-            "size": { "value": 2 },
-
-            "move": { "speed": 1.5 }
-
+        function toggleMusic() {
+            if (musicPlaying) {
+                bgMusic.pause();
+                document.getElementById("music-btn").innerText = "🎵 Play Music";
+            } else {
+                bgMusic.play();
+                document.getElementById("music-btn").innerText = "⏸ Pause Music";
+            }
+            musicPlaying = !musicPlaying;
         }
 
-    });
-</script>
+        function updateCountdown() {
+            const now = new Date();
+            const nextYear = now.getFullYear() + 1;
+            const eventDate = new Date(`${nextYear}-03-22T00:00:00`).getTime();
+            const currentTime = now.getTime();
+            const timeLeft = eventDate - currentTime;
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            document.getElementById("timer").innerHTML = `${days} days ${hours} hrs ${minutes} min ${seconds} sec`;
+
+            setTimeout(updateCountdown, 1000);
+        }
+
+        updateCountdown();
+    </script>
+
+    <!-- Particles.js (Animated Background) -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 60 },
+                "size": { "value": 2 },
+                "move": { "speed": 1.5 }
+            }
+        });
+    </script>
+
 </body>
-</html> 
+</html>
