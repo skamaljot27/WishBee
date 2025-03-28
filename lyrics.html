@@ -3,73 +3,99 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>c</title>
-<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap" rel="stylesheet">
+<title></title>
 <style>
        body {
-           text-align: center;
-           background: linear-gradient(to bottom, #1a1a2e, #16213e);
+           font-family: Arial, sans-serif;
+           background: rgba(0, 0, 0, 0.8);
            color: white;
-           font-family: 'Josefin Sans', sans-serif;
-           height: 100vh;
-           display: flex;
-           flex-direction: column;
-           justify-content: center;
-           align-items: center;
-       }
-       audio {
-           margin-top: 20px;
+           text-align: center;
+           margin: 0;
+           padding: 10px;
+           font-size: 16px;
        }
        #lyrics-container {
-           width: 80%;
-           max-width: 600px;
-           font-size: 1.5rem;
-           text-align: center;
-           margin-top: 20px;
+           max-height: 150px;
+           overflow: hidden;
+           white-space: pre-line;
+           transition: all 0.3s ease-in-out;
+       }
+       .lyric-line {
+           display: none;
+           font-size: 18px;
            opacity: 0;
            transition: opacity 0.5s ease-in-out;
+       }
+       .active {
+           display: block;
+           opacity: 1;
+       }
+       audio {
+           width: 100%;
+           margin-top: 10px;
        }
 </style>
 </head>
 <body>
-<h1>Still Falling for You</h1>
-<audio id="audio" controls autoplay>
+<audio id="audio" controls>
 <source src="Ocean.mp3" type="audio/mp3">
+       Your browser does not support the audio element.
 </audio>
-<div id="lyrics-container">Lyrics will appear here...</div>
+<div id="lyrics-container"></div>
 <script>
+       const lyricsData = [
+           { time: 7.77, text: "Fire and ice" },
+           { time: 9.08, text: "This love is like fire and ice" },
+           { time: 11.16, text: "This love is like rain and blue skies" },
+           { time: 12.93, text: "This love is like sun on the rise" },
+           { time: 15.11, text: "This love's got me rolling the dice" },
+           { time: 17.25, text: "Don't let me lose" },
+           { time: 19.14, text: "Still falling for you" },
+           { time: 21.08, text: "Still falling for you" },
+           { time: 23.95, text: "Beautiful mind" },
+           { time: 24.99, text: "Your heart got a story with mine" },
+           { time: 27.13, text: "Your heart got me hurting at times" },
+           { time: 28.98, text: "Your heart gave me new kinda highs" },
+           { time: 31.04, text: "Your heart got me feeling so fine" },
+           { time: 33.19, text: "So what to do?" },
+           { time: 35.05, text: "Still falling for you" },
+           { time: 37.24, text: "Still falling for you" },
+           { time: 39.37, text: "It took us a while" },
+           { time: 41.17, text: "With every breath, a new day" },
+           { time: 43.16, text: "With love on the line" },
+           { time: 45.27, text: "We've had our share of mistakes" },
+           { time: 47.67, text: "But all your flaws and scars are mine" },
+           { time: 51.16, text: "Still falling for you" },
+           { time: 53.27, text: "Still falling for you" },
+           { time: 55.22, text: "And just like that" },
+           { time: 56.49, text: "All I breathe, all I feel" },
+           { time: 60.33, text: "You are all for me" },
+           { time: 62.45, text: "I'm in" },
+           { time: 63.25, text: "And just like that" },
+           { time: 64.49, text: "All I breathe, all I feel" },
+           { time: 68.44, text: "You are all for me" },
+           { time: 70.52, text: "I'm in" },
+           { time: 71.14, text: "And just like that" }
+       ];
        const audio = document.getElementById("audio");
        const lyricsContainer = document.getElementById("lyrics-container");
-       // Lyrics with exact timestamps
-       const lyrics = [
-           { time: 0, text: "Fire and ice" },
-           { time: 4.5, text: "This love is like fire and ice" },
-           { time: 8.2, text: "This love is like rain and blue skies" },
-           { time: 12.4, text: "This love is like sun on the rise" },
-           { time: 16.3, text: "This love got me rolling the dice" },
-           { time: 19.5, text: "Don't let me lose, still falling for you" },
-           { time: 25.8, text: "Still falling for you" },
-           { time: 29.1, text: "Beautiful mind" },
-           { time: 32.5, text: "Your heart got a story with mine" },
-           { time: 36.2, text: "Your heart got me hurtin' at times" },
-           { time: 40.1, text: "Your heart gave me new kind of highs" },
-           { time: 44.3, text: "Your heart got me feelin' so fine" },
-           { time: 48.7, text: "So what to do, still falling for you" },
-           { time: 54.0, text: "Still falling for you" }
-       ];
-       function updateLyrics() {
-           let currentTime = audio.currentTime;
-           let currentLyric = lyrics.find((line, index) => {
-               return line.time <= currentTime && (lyrics[index + 1]?.time > currentTime || index === lyrics.length - 1);
+       lyricsData.forEach((lyric, index) => {
+           const line = document.createElement("div");
+           line.className = "lyric-line";
+line.id = "line-" + index;
+           line.innerText = lyric.text;
+           lyricsContainer.appendChild(line);
+       });
+       audio.addEventListener("timeupdate", () => {
+           const currentTime = audio.currentTime;
+           lyricsData.forEach((lyric, index) => {
+               const nextLyric = lyricsData[index + 1];
+               if (currentTime >= lyric.time && (!nextLyric || currentTime < nextLyric.time)) {
+                   document.querySelectorAll(".lyric-line").forEach(line => line.classList.remove("active"));
+                   document.getElementById("line-" + index).classList.add("active");
+               }
            });
-           if (currentLyric) {
-               lyricsContainer.innerText = currentLyric.text;
-               lyricsContainer.style.opacity = 1;
-           } else {
-               lyricsContainer.style.opacity = 0;
-           }
-       }
-       audio.addEventListener("timeupdate", updateLyrics);
+       });
 </script>
 </body>
 </html>
