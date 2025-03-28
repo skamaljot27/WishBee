@@ -3,55 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Song Lyrics Sync</title>
+<title>c</title>
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap" rel="stylesheet">
 <style>
-
-        body {
-
-            text-align: center;
-
-            background: linear-gradient(to bottom, #1a1a2e, #16213e);
-
-            color: white;
-
-            font-family: 'Josefin Sans', sans-serif;
-
-            height: 100vh;
-
-            display: flex;
-
-            flex-direction: column;
-
-            justify-content: center;
-
-            align-items: center;
-
-        }
-
-        audio {
-
-            margin-top: 20px;
-
-        }
-
-        #lyrics-container {
-
-            width: 80%;
-
-            max-width: 600px;
-
-            font-size: 1.5rem;
-
-            text-align: center;
-
-            margin-top: 20px;
-
-            opacity: 0;
-
-            transition: opacity 0.5s ease-in-out;
-
-        }
+       body {
+           text-align: center;
+           background: linear-gradient(to bottom, #1a1a2e, #16213e);
+           color: white;
+           font-family: 'Josefin Sans', sans-serif;
+           height: 100vh;
+           display: flex;
+           flex-direction: column;
+           justify-content: center;
+           align-items: center;
+       }
+       audio {
+           margin-top: 20px;
+       }
+       #lyrics-container {
+           width: 80%;
+           max-width: 600px;
+           font-size: 1.5rem;
+           text-align: center;
+           margin-top: 20px;
+           opacity: 0;
+           transition: opacity 0.5s ease-in-out;
+       }
 </style>
 </head>
 <body>
@@ -61,54 +38,38 @@
 </audio>
 <div id="lyrics-container">Lyrics will appear here...</div>
 <script>
-
-        const audio = document.getElementById("audio");
-
-        const lyricsContainer = document.getElementById("lyrics-container");
-
-        // Lyrics with timestamps
-
-        const lyrics = [
-
-            { time: 0, text: "Fire and ice..." },
-
-            { time: 10, text: "This love is like fire and ice" },
-
-            { time: 20, text: "This love is like rain and blue skies" },
-
-            { time: 30, text: "This love is like sun on the rise" },
-
-            { time: 40, text: "This love got me rolling the dice" },
-
-            { time: 50, text: "Don't let me lose, still falling for you" }
-
-        ];
-
-        function updateLyrics() {
-
-            let currentTime = audio.currentTime;
-
-            let currentLyric = lyrics.find((line, index) => {
-
-                return line.time <= currentTime && (lyrics[index + 1]?.time > currentTime || index === lyrics.length - 1);
-
-            });
-
-            if (currentLyric) {
-
-                lyricsContainer.innerText = currentLyric.text;
-
-                lyricsContainer.style.opacity = 1;
-
-            } else {
-
-                lyricsContainer.style.opacity = 0;
-
-            }
-
-        }
-
-        audio.addEventListener("timeupdate", updateLyrics);
+       const audio = document.getElementById("audio");
+       const lyricsContainer = document.getElementById("lyrics-container");
+       // Lyrics with exact timestamps
+       const lyrics = [
+           { time: 0, text: "Fire and ice" },
+           { time: 4.5, text: "This love is like fire and ice" },
+           { time: 8.2, text: "This love is like rain and blue skies" },
+           { time: 12.4, text: "This love is like sun on the rise" },
+           { time: 16.3, text: "This love got me rolling the dice" },
+           { time: 19.5, text: "Don't let me lose, still falling for you" },
+           { time: 25.8, text: "Still falling for you" },
+           { time: 29.1, text: "Beautiful mind" },
+           { time: 32.5, text: "Your heart got a story with mine" },
+           { time: 36.2, text: "Your heart got me hurtin' at times" },
+           { time: 40.1, text: "Your heart gave me new kind of highs" },
+           { time: 44.3, text: "Your heart got me feelin' so fine" },
+           { time: 48.7, text: "So what to do, still falling for you" },
+           { time: 54.0, text: "Still falling for you" }
+       ];
+       function updateLyrics() {
+           let currentTime = audio.currentTime;
+           let currentLyric = lyrics.find((line, index) => {
+               return line.time <= currentTime && (lyrics[index + 1]?.time > currentTime || index === lyrics.length - 1);
+           });
+           if (currentLyric) {
+               lyricsContainer.innerText = currentLyric.text;
+               lyricsContainer.style.opacity = 1;
+           } else {
+               lyricsContainer.style.opacity = 0;
+           }
+       }
+       audio.addEventListener("timeupdate", updateLyrics);
 </script>
 </body>
-</html> 
+</html>
