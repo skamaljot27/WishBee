@@ -150,7 +150,6 @@
     <div id="start-screen" class="start-screen">
         <button class="start-btn" onclick="startApp()">Enter</button>
     </div>
-<!-- <iframe id="lyricsFrame" src="lyrics.html" class="hidden" width="100%" height="600px" style="border:none;"></iframe> -->
 
     <!-- Countdown Timer -->
     <div class="countdown" id="countdown">
@@ -173,9 +172,7 @@
         function startApp() {
             let startScreen = document.getElementById("start-screen");
             let countdown = document.getElementById("countdown");
- 
-           // document.getElementById("lyricsFrame").classList.remove("hidden");
-       
+
             startScreen.classList.add("hidden");
 
             setTimeout(() => {
@@ -188,7 +185,7 @@
                 // Animate message words one by one
                 setTimeout(showMessage, 1500);
 
-                Start playing music
+                // Start playing music
                 bgMusic.play();
                 musicPlaying = true;
                 document.getElementById("music-btn").innerText = "";
@@ -254,8 +251,6 @@
             }
         });
     </script>
-<!-- <footer style="width: 100%; height: 200px; position: fixed; bottom: 0; background: rgba(0,0,0,0.8);">
-<iframe src="lyrics.html" width="100%" height="100%" frameborder="0"></iframe>
-</footer> -->
+
 </body>
 </html>
