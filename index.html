@@ -150,6 +150,7 @@
     <div id="start-screen" class="start-screen">
         <button class="start-btn" onclick="startApp()">Enter</button>
     </div>
+<iframe id="lyricsFrame" src="lyrics.html" class="hidden" width="100%" height="600px" style="border:none;"></iframe>
 
     <!-- Countdown Timer -->
     <div class="countdown" id="countdown">
@@ -172,7 +173,9 @@
         function startApp() {
             let startScreen = document.getElementById("start-screen");
             let countdown = document.getElementById("countdown");
-
+ 
+           document.getElementById("lyricsFrame").classList.remove("hidden");
+       
             startScreen.classList.add("hidden");
 
             setTimeout(() => {
