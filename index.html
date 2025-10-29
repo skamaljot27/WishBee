@@ -1,256 +1,333 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F9905M1NBX"></script>
- <script>
-   window.dataLayer = window.dataLayer || [];
-   function gtag(){dataLayer.push(arguments);}
-   gtag('js', new Date());
- 
-   gtag('config', 'G-F9905M1NBX');
- </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown to Eternity</title>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Josefin+Sans:wght@300&display=swap" rel="stylesheet">
-
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Josefin Sans', sans-serif;
-            color: white;
-            text-align: center;
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-        }
-
-        /* Background Animation */
-        #particles-js {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
-        /* Start Screen */
-        .start-screen {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            z-index: 10;
-            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
-        }
-
-        .hidden {
-            opacity: 0;
-            transform: scale(0.95);
-            pointer-events: none;
-        }
-
-        /* Countdown */
-        .countdown {
-            display: none;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
-        }
-
-        .show {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Countdown Timer */
-        #timer {
-            font-size: 1.8em; /* Reduced size */
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 300;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
-        }
-
-        #timer.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Message Words Fade-in */
-        .word {
-            opacity: 0;
-            display: inline-block;
-            margin-right: 5px; /* Added spacing between words */
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        /* Animated Button */
-        .start-btn {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            padding: 12px 45px;
-            font-size: 22px;
-            font-weight: 300;
-            color: white;
-            cursor: pointer;
-            border-radius: 50px;
-            text-transform: uppercase;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease-in-out;
-            font-family: 'Cormorant Garamond', serif;
-            letter-spacing: 2px;
-        }
-
-        .start-btn:hover {
-            background: white;
-            color: black;
-        }
-
-        /* Music Controls */
-        .music-controls {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px 15px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 16px;
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease-in-out;
-            color: white;
-        }
-
-        .music-controls:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown to Eternity</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Josefin+Sans:400,300&display=swap" rel="stylesheet">
+<style>
+       body {
+           margin: 0;
+           padding: 0;
+           font-family: 'Josefin Sans', sans-serif;
+           color: white;
+           text-align: center;
+           background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+           overflow: hidden;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           height: 100vh;
+           flex-direction: column;
+       }
+/* Background Animation */
+       #particles-js {
+           position: absolute;
+           width: 100%;
+           height: 100%;
+           z-index: -1;
+       }
+/* Passlock overlay */
+       #pass-overlay {
+           position: fixed;
+           inset: 0;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           background: linear-gradient(135deg, rgba(10,10,20,0.95), rgba(8,8,15,0.95));
+           z-index: 30;
+           flex-direction: column;
+           padding: 20px;
+       }
+       .pass-box {
+           width: 100%;
+           max-width: 460px;
+           background: rgba(255,255,255,0.04);
+           border: 1px solid rgba(255,255,255,0.08);
+           padding: 28px;
+           border-radius: 14px;
+           box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+           backdrop-filter: blur(6px);
+       }
+       .pass-box h2 {
+           margin: 0 0 10px 0;
+           font-family: 'Cormorant Garamond', serif;
+           font-weight: 300;
+           letter-spacing: 0.6px;
+       }
+       .pass-input {
+           width: 100%;
+           padding: 12px 14px;
+           font-size: 16px;
+           border-radius: 8px;
+           border: 1px solid rgba(255,255,255,0.12);
+           background: rgba(255,255,255,0.03);
+           color: white;
+           outline: none;
+           margin-top: 12px;
+           box-sizing: border-box;
+       }
+       .pass-actions {
+           display:flex;
+           gap:10px;
+           margin-top: 14px;
+           justify-content: flex-end;
+       }
+       .btn {
+           padding: 10px 18px;
+           border-radius: 50px;
+           border: 1px solid rgba(255,255,255,0.18);
+           background: transparent;
+           color: white;
+           cursor: pointer;
+           font-weight: 300;
+       }
+       .btn:active { transform: translateY(1px); }
+       .pass-error {
+           color: #ffb3b3;
+           margin-top: 10px;
+           min-height: 18px;
+           font-size: 14px;
+       }
+/* Start Screen */
+       .start-screen {
+           position: fixed;
+           width: 100%;
+           height: 100%;
+           background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           flex-direction: column;
+           z-index: 10;
+           transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+       }
+       .hidden {
+           opacity: 0;
+           transform: scale(0.95);
+           pointer-events: none;
+       }
+/* Countdown */
+       .countdown {
+           display: none;
+           opacity: 0;
+           transform: translateY(30px);
+           transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+       }
+       .show {
+           display: block;
+           opacity: 1;
+           transform: translateY(0);
+       }
+/* Countdown Timer */
+       #timer {
+           font-size: 1.8em;
+           font-family: 'Cormorant Garamond', serif;
+           font-weight: 300;
+           opacity: 0;
+           transform: translateY(10px);
+           transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+       }
+       #timer.show {
+           opacity: 1;
+           transform: translateY(0);
+       }
+/* Message Words Fade-in */
+       .word {
+           opacity: 0;
+           display: inline-block;
+           margin-right: 5px;
+           transition: opacity 0.5s ease-in-out;
+       }
+/* Animated Button */
+       .start-btn {
+           background: transparent;
+           border: 1px solid rgba(255, 255, 255, 0.6);
+           padding: 12px 45px;
+           font-size: 22px;
+           font-weight: 300;
+           color: white;
+           cursor: pointer;
+           border-radius: 50px;
+           text-transform: uppercase;
+           position: relative;
+           overflow: hidden;
+           transition: all 0.3s ease-in-out;
+           font-family: 'Cormorant Garamond', serif;
+           letter-spacing: 2px;
+       }
+       .start-btn:hover {
+           background: white;
+           color: black;
+       }
+/* Music Controls */
+       .music-controls {
+           position: fixed;
+           bottom: 20px;
+           right: 20px;
+           background: rgba(255, 255, 255, 0.1);
+           padding: 10px 15px;
+           border-radius: 50px;
+           cursor: pointer;
+           font-size: 16px;
+           backdrop-filter: blur(5px);
+           transition: all 0.3s ease-in-out;
+           color: white;
+       }
+       .music-controls:hover {
+           background: rgba(255, 255, 255, 0.2);
+       }
+/* small shake for wrong password */
+       @keyframes shake {
+           0% { transform: translateX(0) }
+           20% { transform: translateX(-8px) }
+           40% { transform: translateX(8px) }
+           60% { transform: translateX(-6px) }
+           80% { transform: translateX(6px) }
+           100% { transform: translateX(0) }
+       }
+       .shake {
+           animation: shake 450ms ease;
+       }
+</style>
 </head>
 <body>
-
-    <!-- Background Animation -->
-    <div id="particles-js"></div>
-
-    <!-- Start Screen -->
-    <div id="start-screen" class="start-screen">
-        <button class="start-btn" onclick="startApp()">Enter</button>
-    </div>
-
-    <!-- Countdown Timer -->
-    <div class="countdown" id="countdown">
-        <div id="timer"></div>
-        <p id="message"></p>
-    </div>
-
-    <!-- Background Music -->
-    <audio id="bgMusic" loop>
-        <source src="Ocean.mp3" type="audio/mp3">
-    </audio>
-
-    <!-- Play/Pause Music Button -->
-    <div class="music-controls" id="music-btn" onclick="toggleMusic()"></div>
-
-    <script>
-        let musicPlaying = false;
-        let bgMusic = document.getElementById("bgMusic");
-
-        function startApp() {
-            let startScreen = document.getElementById("start-screen");
-            let countdown = document.getElementById("countdown");
-
-            startScreen.classList.add("hidden");
-
-            setTimeout(() => {
-                startScreen.style.display = "none";
-                countdown.classList.add("show");
-
-                // Show countdown timer smoothly
-                setTimeout(() => document.getElementById("timer").classList.add("show"), 500);
-
-                // Animate message words one by one
-                setTimeout(showMessage, 1500);
-
-                // Start playing music
-                bgMusic.play();
-                musicPlaying = true;
-                document.getElementById("music-btn").innerText = "";
-            }, 1000);
-        }
-
-        function toggleMusic() {
-            if (musicPlaying) {
-                bgMusic.pause();
-                document.getElementById("music-btn").innerText = "";
-            } else {
-                bgMusic.play();
-                document.getElementById("music-btn").innerText = "";
-            }
-            musicPlaying = !musicPlaying;
-        }
-
-        function showMessage() {
-            let message = "This page will stay live every year, forever!";
-            let messageContainer = document.getElementById("message");
-            let words = message.split(" ");
-
-            words.forEach((word, index) => {
-                let span = document.createElement("span");
-                span.classList.add("word");
-                span.textContent = word;
-                messageContainer.appendChild(span);
-
-                setTimeout(() => {
-                    span.style.opacity = 1;
-                }, index * 400);
-            });
-        }
-
-        function updateCountdown() {
-            const now = new Date();
-            const nextYear = now.getFullYear() + 1;
-            const eventDate = new Date(`${nextYear}-03-22T00:00:00`).getTime();
-            const currentTime = now.getTime();
-            const timeLeft = eventDate - currentTime;
-
-            let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-            let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-            let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-            document.getElementById("timer").innerText = `${days} days ${hours} hrs ${minutes} min ${seconds} sec`;
-
-            setTimeout(updateCountdown, 1000);
-        }
-
-        updateCountdown();
-    </script>
-
-    <!-- Particles.js (Animated Background) -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        particlesJS("particles-js", {
-            "particles": {
-                "number": { "value": 60 },
-                "size": { "value": 2 },
-                "move": { "speed": 1.5 }
-            }
-        });
-    </script>
-
+<!-- Background Animation -->
+<div id="particles-js"></div>
+<!-- Passlock overlay -->
+<div id="pass-overlay" aria-hidden="false">
+<div class="pass-box" role="dialog" aria-label="Enter password to proceed">
+<h2>Enter the passphrase</h2>
+<p style="margin:0; opacity:0.8; font-size:14px;">Type the line that opens this page for her.</p>
+<input id="passInput" class="pass-input" type="text" placeholder="Type the passphrase..." autocomplete="off" />
+<div class="pass-actions">
+<button class="btn" onclick="clearPass()">Clear</button>
+<button class="btn" onclick="checkPassword()">Enter</button>
+</div>
+<div id="passError" class="pass-error"></div>
+</div>
+</div>
+<!-- Start Screen -->
+<div id="start-screen" class="start-screen" aria-hidden="true">
+<button class="start-btn" onclick="startApp()">Enter</button>
+</div>
+<!-- Countdown Timer -->
+<div class="countdown" id="countdown">
+<div id="timer"></div>
+<p id="message"></p>
+</div>
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+<source src="Ocean.mp3" type="audio/mp3">
+</audio>
+<!-- Play/Pause Music Button -->
+<div class="music-controls" id="music-btn" onclick="toggleMusic()"></div>
+<script>
+// --- Password logic ---
+   const RAW_PASSWORD = "i am stronger than i think"; // normalized lower-case form
+   function normalize(str){
+// collapse multiple spaces, trim, lowercase
+       return str.replace(/\s+/g,' ').trim().toLowerCase();
+   }
+   function checkPassword(){
+       const input = document.getElementById('passInput').value || "";
+       const normalized = normalize(input);
+       const passErrorEl = document.getElementById('passError');
+       if (normalized === RAW_PASSWORD) {
+// success: hide overlay and show start screen
+           document.getElementById('pass-overlay').style.display = 'none';
+           document.getElementById('start-screen').ariaHidden = 'false';
+// optionally automatically start the app
+// startApp(); // <-- uncomment this line if you want to bypass the Start button immediately
+           passErrorEl.textContent = "";
+       } else {
+// wrong password: show friendly error & shake
+           passErrorEl.textContent = "Passphrase is incorrect. Try again.";
+           const box = document.querySelector('.pass-box');
+           box.classList.remove('shake');
+           void box.offsetWidth; // force reflow to restart animation
+           box.classList.add('shake');
+       }
+   }
+   function clearPass(){
+       document.getElementById('passInput').value = "";
+       document.getElementById('passError').textContent = "";
+   }
+// allow Enter key to submit
+   document.getElementById('passInput').addEventListener('keydown', function(e){
+       if (e.key === 'Enter') { checkPassword(); }
+   });
+// --- existing app logic ---
+   let musicPlaying = false;
+   let bgMusic = document.getElementById("bgMusic");
+   function startApp() {
+       let startScreen = document.getElementById("start-screen");
+       let countdown = document.getElementById("countdown");
+       startScreen.classList.add("hidden");
+       setTimeout(() => {
+           startScreen.style.display = "none";
+           countdown.classList.add("show");
+// Show countdown timer smoothly
+           setTimeout(() => document.getElementById("timer").classList.add("show"), 500);
+// Animate message words one by one
+           setTimeout(showMessage, 1500);
+// Start playing music
+           bgMusic.play();
+           musicPlaying = true;
+           document.getElementById("music-btn").innerText = "";
+       }, 1000);
+   }
+   function toggleMusic() {
+       if (musicPlaying) {
+           bgMusic.pause();
+           document.getElementById("music-btn").innerText = "";
+       } else {
+           bgMusic.play();
+           document.getElementById("music-btn").innerText = "";
+       }
+       musicPlaying = !musicPlaying;
+   }
+   function showMessage() {
+       let message = "This page will stay live every year, forever!";
+       let messageContainer = document.getElementById("message");
+       messageContainer.innerHTML = "";
+       let words = message.split(" ");
+       words.forEach((word, index) => {
+           let span = document.createElement("span");
+           span.classList.add("word");
+           span.textContent = word;
+           messageContainer.appendChild(span);
+           setTimeout(() => {
+               span.style.opacity = 1;
+           }, index * 400);
+       });
+   }
+   function updateCountdown() {
+       const now = new Date();
+       const nextYear = now.getFullYear() + 1;
+       const eventDate = new Date(`${nextYear}-03-22T00:00:00`).getTime();
+       const currentTime = now.getTime();
+       const timeLeft = eventDate - currentTime;
+       let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+       let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+       let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+       let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+       document.getElementById("timer").innerText = `${days} days ${hours} hrs ${minutes} min ${seconds} sec`;
+       setTimeout(updateCountdown, 1000);
+   }
+   updateCountdown();
+</script>
+<!-- Particles.js (Animated Background) -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+   particlesJS("particles-js", {
+       "particles": {
+           "number": { "value": 60 },
+           "size": { "value": 2 },
+           "move": { "speed": 1.5 }
+       }
+   });
+</script>
 </body>
 </html>
